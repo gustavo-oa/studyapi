@@ -17,20 +17,43 @@ services:
       timeout: 3s
       retries: 10
 
+  # Development: hot reload via dotnet watch (default)
   api:
-    build:
-      context: .
-      dockerfile: StudyApi.Api/Dockerfile
+    image: mcr.microsoft.com/dotnet/sdk:8.0
     container_name: studyapi-api
+    working_dir: /src/StudyApi.Api
     depends_on:
       db:
         condition: service_healthy
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
+      - DOTNET_USE_POLLING_FILE_WATCHER=1
+      - ASPNETCORE_URLS=http://+:8080
+      - Database__ConnectionString=Host=db;Port=5432;Database=studyapi;Username=postgres;Password=postgres;SSL Mode=Disable;
+    command: ["dotnet", "watch", "run", "--urls", "http://0.0.0.0:8080"]
+    ports:
+      - "8080:8080"
+    volumes:
+      - ./:/src
+      - nuget:/root/.nuget/packages
+
+  # Production-like image (published app)
+  api-prod:
+    profiles: ["prod"]
+    build:
+      context: .
+      dockerfile: StudyApi.Api/Dockerfile
+    container_name: studyapi-api-prod
+    depends_on:
+      db:
+        condition: service_healthy
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Production
       - Database__ConnectionString=Host=db;Port=5432;Database=studyapi;Username=postgres;Password=postgres;SSL Mode=Disable;
     ports:
       - "8080:8080"
 
 volumes:
   pgdata:
+  nuget:
 
