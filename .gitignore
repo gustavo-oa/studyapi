@@ -1,0 +1,46 @@
+# Build outputs
+bin/
+obj/
+out/
+artifacts/
+TestResults/
+
+# Config transforms and local overrides (optional)
+appsettings.*.local.json
+
+# User-specific files
+*.user
+*.suo
+*.userosscache
+*.sln.docstates
+*.rsuser
+*.DotSettings.user
+
+# IDE directories
+.vs/
+.idea/
+.vscode/
+
+# NuGet
+*.nupkg
+*.snupkg
+packages/
+.nuget/packages/
+
+# Logs and temp
+logs/
+*.log
+*.tmp
+*.temp
+
+# Coverage and test artifacts
+*.coverage
+*.coveragexml
+*.trx
+coverage/
+
+# OS files
+.DS_Store
+Thumbs.db
+ehthumbs.db
+
