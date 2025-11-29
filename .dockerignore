@@ -1,0 +1,16 @@
+**/bin/
+**/obj/
+.git
+.gitignore
+.vs
+.vscode
+Dockerfile
+**/*.user
+**/*.suo
+**/*.csproj.user
+**/*.dbmdl
+**/*.log
+**/node_modules/
+**/*.swp
+**/.DS_Store
+
